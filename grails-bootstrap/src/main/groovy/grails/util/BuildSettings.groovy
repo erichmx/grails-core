@@ -184,6 +184,19 @@ class BuildSettings {
     public static final File GRAILS_HOME = System.getProperty('grails.home') ? new File(System.getProperty('grails.home')) : null
 
     /**
+     * The target directory path of the project. It has to be initialized before BASE_DIR or any access to IOUtils.
+     */
+    public static final String TARGET_DIR_PATH = System.getenv('GRADLE_BUILD_DIR') ? System.getenv('GRADLE_BUILD_DIR') : System.getProperty(PROJECT_TARGET_DIR) ? System.getProperty(PROJECT_TARGET_DIR) : "build"
+    /**
+     * The path to the build resources directory. It has to be initialized before BASE_DIR or any access to IOUtils.
+     */
+    public static final String BUILD_RESOURCES_PATH = System.getProperty(PROJECT_RESOURCES_DIR) ? System.getProperty(PROJECT_RESOURCES_DIR) : "${TARGET_DIR_PATH}/resources/main"
+    /**
+    * The path to the build classes directory. It has to be initialized before BASE_DIR or any access to IOUtils.
+    */
+    public static final String BUILD_CLASSES_PATH = System.getProperty(PROJECT_CLASSES_DIR) ? System.getProperty(PROJECT_CLASSES_DIR) : "${TARGET_DIR_PATH}/classes/main"
+
+    /**
      * The base directory of the project
      */
     public static final File BASE_DIR = System.getProperty(APP_BASE_DIR) ? new File(System.getProperty(APP_BASE_DIR)) :  ( IOUtils.findApplicationDirectoryFile() ?: new File("."))
@@ -196,7 +209,8 @@ class BuildSettings {
     /**
      * The target directory of the project, null outside of the development environment
      */
-    public static final File TARGET_DIR = new File(BASE_DIR, "build")
+    public static final File TARGET_DIR = System.getenv('GRADLE_BUILD_DIR') ? new File(BASE_DIR, System.getenv('GRADLE_BUILD_DIR')) : System.getProperty(PROJECT_TARGET_DIR) ? new File(BASE_DIR, System.getProperty(PROJECT_TARGET_DIR)) : new File(BASE_DIR, "build")
+
     /**
      * The resources directory of the project, null outside of the development environment
      */
@@ -206,16 +220,6 @@ class BuildSettings {
      */
     public static final File CLASSES_DIR = !GRAILS_APP_DIR_PRESENT ? null : (System.getProperty(PROJECT_CLASSES_DIR) ? new File(System.getProperty(PROJECT_CLASSES_DIR)) : new File(TARGET_DIR, "classes/main"))
     public static final String RUN_EXECUTED = "grails.run.executed"
-
-    /**
-     * The path to the build classes directory
-     */
-    public static final String BUILD_CLASSES_PATH = "build/classes/main"
-
-    /**
-     * The path to the build resources directory
-     */
-    public static final String BUILD_RESOURCES_PATH = "build/resources/main"
 
     public static final File SETTINGS_FILE = new File("${System.getProperty('user.home')}/.grails/settings.groovy")
 

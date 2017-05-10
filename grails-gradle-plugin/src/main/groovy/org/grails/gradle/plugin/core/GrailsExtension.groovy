@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Project
 import org.gradle.util.ConfigureUtil
+import grails.util.BuildSettings
 
 /**
  * A extension to the Gradle plugin to configure Grails settings
@@ -73,7 +74,7 @@ class GrailsExtension {
         Boolean logging
         boolean synchronize = true
         boolean allowSplitPackages = true
-        File cacheDir = new File("build/springloaded")
+        File cacheDir = new File(BuildSettings.TARGET_DIR, "springloaded")
 
         Map<String, String> systemProperties = ['jdk.reflect.allowGetCallerClass': 'true']
         List<String> jvmArgs = ['-Xverify:none']

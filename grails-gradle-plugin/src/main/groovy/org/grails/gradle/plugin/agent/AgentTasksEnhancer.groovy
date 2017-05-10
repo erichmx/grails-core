@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.JavaExec
 import org.grails.gradle.plugin.core.GrailsExtension
+import grails.util.BuildSettings
 
 /**
  * Sets up the reloading agent based on the agent configuration after the project has been configured
@@ -48,7 +49,7 @@ class AgentTasksEnhancer implements Action<Project> {
                     inclusions: agentConfig.inclusions,
                     synchronize: String.valueOf( agentConfig.synchronize ),
                     allowSplitPackages: String.valueOf( agentConfig.allowSplitPackages ),
-                    cacheDir: agentConfig.cacheDir ? project.mkdir(agentConfig.cacheDir) : project.mkdir("build/springloaded")
+                    cacheDir: agentConfig.cacheDir ? project.mkdir(agentConfig.cacheDir) : project.mkdir("${BuildSettings.TARGET_DIR_PATH}/springloaded")
             ]
             if(agentConfig.logging != null) {
                 agentArgs.put("logging", String.valueOf(agentConfig.logging))
