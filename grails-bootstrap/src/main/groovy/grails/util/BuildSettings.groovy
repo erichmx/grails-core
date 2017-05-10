@@ -209,7 +209,7 @@ class BuildSettings {
     /**
      * The target directory of the project, null outside of the development environment
      */
-    public static final File TARGET_DIR = System.getenv('GRADLE_BUILD_DIR') ? new File(BASE_DIR, System.getenv('GRADLE_BUILD_DIR')) : System.getProperty(PROJECT_TARGET_DIR) ? new File(BASE_DIR, System.getProperty(PROJECT_TARGET_DIR)) : new File(BASE_DIR, "build")
+    public static final File TARGET_DIR = System.getenv('GRADLE_BUILD_DIR') ? new File(BASE_DIR, System.getenv('GRADLE_BUILD_DIR')) : System.getProperty(PROJECT_TARGET_DIR) ? new File(BASE_DIR, System.getProperty(PROJECT_TARGET_DIR)) : new File(BASE_DIR, TARGET_DIR_PATH)
 
     /**
      * The resources directory of the project, null outside of the development environment
